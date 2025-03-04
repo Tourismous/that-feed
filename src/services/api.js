@@ -50,7 +50,9 @@ export const verifyToken = async (token) => {
   const response = await fetch(`${BASE_URL}/users/verify`, {
     headers: getHeaders(token),
   });
-  return handleResponse(response);
+
+  const data = await handleResponse(response);
+  return data.user;
 };
 
 // Category APIs
