@@ -24,7 +24,6 @@ const getHeaders = (token = null) => {
   return headers;
 };
 
-// User APIs
 
 export const googleUser = async(google_code) => {
   const response = await fetch(`${BASE_URL}/users/google_login`, {
@@ -55,7 +54,6 @@ export const verifyToken = async (token) => {
   return data.user;
 };
 
-// Category APIs
 export const getCategories = async (token) => {
   const response = await fetch(`${BASE_URL}/categories`, {
     headers: getHeaders(token)
@@ -64,9 +62,8 @@ export const getCategories = async (token) => {
   return handleResponse(response);
 };
 
-// Subscription APIs
 export const getUserSubscriptions = async (token) => {
-  const response = await fetch(`${BASE_URL}/subscriptions`, {
+  const response = await fetch(`${BASE_URL}/feed/subscriptions`, {
     headers: getHeaders(token)
   });
 
@@ -74,7 +71,7 @@ export const getUserSubscriptions = async (token) => {
 };
 
 export const subscribeToCategory = async (token, categoryId) => {
-  const response = await fetch(`${BASE_URL}/subscribe`, {
+  const response = await fetch(`${BASE_URL}/feed/subscribe`, {
     method: 'POST',
     headers: getHeaders(token),
     body: JSON.stringify({ category_id: categoryId })
@@ -84,7 +81,7 @@ export const subscribeToCategory = async (token, categoryId) => {
 };
 
 export const unsubscribeFromCategory = async (token, categoryId) => {
-  const response = await fetch(`${BASE_URL}/unsubscribe`, {
+  const response = await fetch(`${BASE_URL}/feed/unsubscribe`, {
     method: 'POST',
     headers: getHeaders(token),
     body: JSON.stringify({ category_id: categoryId })
@@ -93,27 +90,17 @@ export const unsubscribeFromCategory = async (token, categoryId) => {
   return handleResponse(response);
 };
 
-// News Feed APIs
+
 export const getNewsByCategory = async (categoryId, token = null) => {
-  const response = await fetch(`${BASE_URL}/${categoryId}`, {
+  const response = await fetch(`${BASE_URL}/news/${categoryId}`, {
     headers: getHeaders(token)
   });
 
   return handleResponse(response);
 };
 
-export const fetchNews = async (token) => {
-  const response = await fetch(`${BASE_URL}/fetch`, {
-    method: 'POST',
-    headers: getHeaders(token)
-  });
-
-  return handleResponse(response);
-};
-
-// Notification APIs
 export const getNotifications = async (token) => {
-  const response = await fetch(`${BASE_URL}/`, {
+  const response = await fetch(`${BASE_URL}/notifications`, {
     headers: getHeaders(token)
   });
 
@@ -121,7 +108,7 @@ export const getNotifications = async (token) => {
 };
 
 export const markNotificationAsRead = async (token, notificationId) => {
-  const response = await fetch(`${BASE_URL}/mark_as_read/${notificationId}`, {
+  const response = await fetch(`${BASE_URL}/notifications/mark_as_read/${notificationId}`, {
     method: 'POST',
     headers: getHeaders(token)
   });
